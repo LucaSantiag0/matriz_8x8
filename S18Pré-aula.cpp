@@ -1,48 +1,52 @@
 #include <stdio.h>
-#include <math.h>
+#include <stdbool.h> // Include for bool type
 #include <locale.h>
 
-// so mudar os numeros
-#define lin 8
-#define col 8
+#define ROWS 8
+#define COLS 8
 
-int main()
-{
-    setlocale(LC_ALL, "Portuguese");
-
-    int mat[lin][col], i, j;
-    bool simetrica;
-
-    // preenchendo uma MATRIZ
-    for (i = 0; i < lin; i++)
-    {
-
-        for (j = 0; j < col; j++)
-        {
+// Function to fill the matrix with user input
+void fillMatrix(int mat[ROWS][COLS]) {
+    int i, j;
+    for (i = 0; i < ROWS; i++) {
+        for (j = 0; j < COLS; j++) {
             printf("\n**Linha %i Coluna %i **\n", i + 1, j + 1);
             printf("Digite um valor: ");
             scanf("%i", &mat[i][j]);
         }
     }
+}
 
-    simetrica = true;
-    for (i = 0; i < lin; i++)
-    {
-        for (j = 0; j < col; j++)
-        {
-            if (mat[i][j] != mat[j][i])
-            {
-                simetrica = false;
+// Function to check if the matrix is symmetric
+bool isSymmetric(int mat[ROWS][COLS]) {
+    int i, j;
+    for (i = 0; i < ROWS; i++) {
+        for (j = 0; j < COLS; j++) {
+            if (mat[i][j] != mat[j][i]) {
+                return false;
             }
         }
     }
+    return true;
+}
 
-    if (simetrica)
-    {
-        printf("A matriz informada é simetrica!");
+int main() {
+    setlocale(LC_ALL, "Portuguese");
+
+    int mat[ROWS][COLS];
+    bool symmetric;
+
+    // Fill the matrix
+    fillMatrix(mat);
+
+    // Check if the matrix is symmetric
+    symmetric = isSymmetric(mat);
+
+    if (symmetric) {
+        printf("A matriz informada Ã© simÃ©trica!\n");
+    } else {
+        printf("A matriz informada nÃ£o Ã© simÃ©trica!\n");
     }
-    else
-    {
-        printf("A matriz informada não é simetrica!");
-    }
+
+    return 0;
 }
